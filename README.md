@@ -9,7 +9,7 @@ Create an AWS Lambda Function named `ProcessSongData` to process data from a CSV
     - [invoke local lambda with SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-invoke.html)
 2. Write this function using Python 3.9 or Node 14.
 3. Use [this DockerHub image](https://hub.docker.com/r/keinos/sqlite3) to run sqlite3 container.
-4. `song_data.csv` can be stored anywhere as long as it can be accesssed by the reviewers when they run your code.
+4. `song_data.csv` can be stored anywhere as long as it can be accessed by the reviewers when they run your code.
 5. Understand the structure of `song_data.csv` and come up with a relational database design.
 6. Write the data to SQLite3 (you can use any database adapter library).
 7. Write documentation in `README.md` on your design decisions and instructions on how to run your code.
