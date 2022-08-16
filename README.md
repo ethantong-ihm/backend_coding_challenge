@@ -3,10 +3,10 @@
 ## Data Processing
 Create an AWS Lambda Function named `ProcessSongData` to process data from a CSV file and write it to a local sqlite3 container.
 1. Use AWS SAM YAML template to create and run the lambda function locally.
-    - https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
-    - https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html
-    - https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-command-reference.html
-    - https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-invoke.html
+    - [SAM overview](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html)
+    - [Create a lambda function from SAM template](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html)
+    - [SAM CLI commands](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-command-reference.html)
+    - [invoke local lambda with SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-invoke.html)
 2. Write this function using Python 3.9 or Node 14.
 3. Use [this DockerHub image](https://hub.docker.com/r/keinos/sqlite3) to run sqlite3 container.
 4. `song_data.csv` can be stored anywhere as long as it can be accesssed by the reviewers when they run your code.
@@ -17,9 +17,8 @@ Create an AWS Lambda Function named `ProcessSongData` to process data from a CSV
 ## API
 Build an AWS API Gateway with lambda integration to query from the local SQLite3 and return a JSON response.
 1. Use AWS SAM YAML template to create and run the API Gateway with lambda function locally.
-    - https://docs.aws.amazon.com/lambda/latest/dg/services-apigateway-tutorial.html
-    - https://docs.aws.amazon.com/lambda/latest/dg/services-apigateway-template.html
-    - https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-start-api.html
+    - [Create API Gateway + Lambda from SAM template](https://docs.aws.amazon.com/lambda/latest/dg/services-apigateway-template.html)
+    - [Run local API Gateway with SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-start-api.html)
 
 2. Write these functions using Python 3.9 or Node 14.
 3. Write a lambda named `GetQualifiedSongs`:
