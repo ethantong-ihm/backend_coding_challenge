@@ -1,58 +1,35 @@
  # iHeartMedia - Music Lab - Data Code Challenge
 
 ## Data Processing
-Create an AWS Lambda Function named `ProcessSongData` to process data from a CSV file and write it to a local Postgres container.
+Create an AWS Lambda Function named `ProcessSongData` to process data from a CSV file and write it to a local sqlite3 container.
 1. Use AWS SAM YAML template to create and run the lambda function locally.
     - https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
     - https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html
-2. Write this function in Python 3.9
-3. Use [this DockerHub image](https://hub.docker.com/_/postgres) to run Postgres container.
-4. `song_data.csv` can be stored anywhere as long as it can be accesssed by the reviewers when they run your Python code.
-5. Come up with a table design to store `song_data.csv` and write it to Postgres (you can use `psycopg2` or any database adapter library you'd like).
-6. Write documentation in `README.md` on your design decisions and instructions on how to run your code. 
+    - https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-command-reference.html
+    - https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-invoke.html
+2. Write this function using Python 3.9 or Node 14.
+3. Use [this DockerHub image](https://hub.docker.com/r/keinos/sqlite3) to run sqlite3 container.
+4. `song_data.csv` can be stored anywhere as long as it can be accesssed by the reviewers when they run your code.
+5. Understand the structure of `song_data.csv` and come up with a relational database design.
+6. Write the data to SQLite3 (you can use any database adapter library).
+7. Write documentation in `README.md` on your design decisions and instructions on how to run your code.
 
 ## API
-Build an AWS API Gateway with lambda integration to query  from the local Postgres and return JSON responses.
-1. Use AWS SAM YAML template to create the 2 lambda functions.
+Build an AWS API Gateway with lambda integration to query from the local SQLite3 and return a JSON response.
+1. Use AWS SAM YAML template to create and run the API Gateway with lambda function locally.
     - https://docs.aws.amazon.com/lambda/latest/dg/services-apigateway-tutorial.html
     - https://docs.aws.amazon.com/lambda/latest/dg/services-apigateway-template.html
-2. Write these functions in JavaScript using Node 14.
-3.  Write a lambda named `GetAllSongTitles`:
-    - Return an unordered and distinct list of song titles from DB
-    - Path `/get-all-song-Titles`
-    - Method `Get`
-    - Your response object should look like
-        ```JSON
-        {
-            "SongTitles": ["Shape Of You", "Bad Habits", ...] 
-        }
-        ```
-4. Write a lambda named `GetQualifiedSongs`:
-    - Return a distinct list of songs that have `BreakoutName = m` and `POP > n` (*m* and *n* are arguments/params/variables)
-    -  Path `get-qualified-songs`
-    - Method `Post` with a request body that looks like:
-        ```JSON
-            {
-                "BreakOutName": "Total"
-                "PopGreaterThan": 70
-            }
-        ```
-    - Your response object should look like
-        ```JSON
-            {
-                "Songs": [
-                    {
-                        "SongTitle": "Shape Of You",
-                        "Artist": "SHEERAN ED",
-                        "BreakoutName": "Total",
-                        "POP": 70
-                    },
-                    ...
-                ]
-            }
-        ```
+    - https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-start-api.html
 
-5. Write instructions on how to run your code. Other types of documentation are not required for this API.
+2. Write these functions using Python 3.9 or Node 14.
+3. Write a lambda named `GetQualifiedSongs`:
+    - Return a distinct list of songs that have `BreakoutName = m` and `BreakoutMetric1 > n` (*m* and *n* are variables)
+    - Path: `get-qualified-songs`.
+    - Method: `Post`.
+    - The request body should contain `BreakoutName` and `BreakoutMetric1` parameters.
+    - The response body should contain `SongTitle`, `Artist`, `BreakoutName`, and `BreakoutMetric1`.
+4. Write instructions on how to run your code. Other types of documentation are not required for this API.
+5. Feel free to extend this with TypeScript, GraphQL, or unit test cases but this is completely optional.
 
 ## Important Requirement Notes:
 - **Reviewers will run your code based on your instructions.**
