@@ -1,0 +1,60 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Song-Data
+
+  Sample SAM Template for Song-Data
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 300
+
+Resources:
+  ProcessSongDataFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: ProcessSongData/
+      Handler: ProcessSongData.lambda_handler
+      Runtime: python3.9
+      Architectures:
+        - x86_64
+      
+  GetQualifiedSongsFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: GetQualifiedSongs/
+      Handler: GetQualifiedSongs.lambda_handler
+      Runtime: python3.9
+      Architectures:
+        - x86_64
+      Events:
+        GetQualifiedSongs:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /GetQualifiedSongs
+            Method: get
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  ProcessSongData:
+    Description: "API Gateway endpoint URL for Prod stage for ProcessSongData function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod//"
+  ProcessSongDataFunction:
+    Description: "ProcessSongData Lambda Function ARN"
+    Value: !GetAtt ProcessSongDataFunction.Arn
+  ProcessSongDataFunctionIamRole:
+    Description: "Implicit IAM Role created for ProcessSongData function"
+    Value: !GetAtt ProcessSongDataFunctionRole.Arn
+  
+  GetQualifiedSongs:
+    Description: "API Gateway endpoint URL for Prod stage for GetQualifiedSongs function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod//"
+  GetQualifiedSongsFunction:
+    Description: "GetQualifiedSongs Lambda Function ARN"
+    Value: !GetAtt GetQualifiedSongsFunction.Arn
+  GetQualifiedSongsFunctionIamRole:
+    Description: "Implicit IAM Role created for GetQualifiedSongs function"
+    Value: !GetAtt GetQualifiedSongsFunctionRole.Arn
